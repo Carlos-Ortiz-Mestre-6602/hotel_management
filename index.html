@@ -11,13 +11,13 @@
 
 <body>
     <nav class="mainNav">
-        <div class="mainNavLogo">
+        <div class="mainNavLogo mainNavButton" data-page-name="home">
             <img src="./src/assets/logo.svg" width="30" height="30" alt="App logo">
         </div>
         <div>
             <ul class="mainNavList">
                 <li>
-                    <button title="Home">
+                    <button class="mainNavButton" title="Home" data-page-name="home">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#000000">
                             <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z" />
@@ -25,7 +25,7 @@
                     </button>
                 </li>
                 <li>
-                    <button title="Content Management">
+                    <button class="mainNavButton" title="Content Management" data-page-name="management">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#000000">
                             <path
@@ -34,7 +34,7 @@
                     </button>
                 </li>
                 <li>
-                    <button title="Configuration">
+                    <button class="mainNavButton" title="Configuration" data-page-name="settings">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#000000">
                             <path
@@ -46,7 +46,7 @@
         </div>
     </nav>
 
-    <main class="mainContent"></main>
+    <main id="mainContent"></main>
 </body>
 <script src="./renderer.js"></script>
 
