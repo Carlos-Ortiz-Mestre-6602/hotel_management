@@ -60,5 +60,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-console.log("From server...")
