@@ -88,4 +88,4 @@ async function navigate(root, contentId, page) {
 }
 
 // Llamada inicial para cargar la página de inicio
-navigate("mainContent", "home");
+navigate(document, "mainContent", "home");
