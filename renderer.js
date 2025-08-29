@@ -1,3 +1,5 @@
+import contentManagementRoute from "./src/routes/contentmanagement/index.js";
+
 const routes = {
     home: {
         path: "./src/routes/home/index.html",
@@ -5,7 +7,12 @@ const routes = {
     },
     management: {
         path: "./src/routes/contentmanagement/index.html",
-        templateId: "#content-management-template"
+        templateId: "#content-management-template",
+        setup: contentManagementRoute.setup
+    },
+    rooms: {
+        path: "./src/routes/contentmanagement/rooms/index.html",
+        templateId: "#rooms-template"
     },
     settings: {
         path: "./src/routes/settings/index.html",
@@ -18,12 +25,12 @@ const navButtons = document.querySelectorAll('.mainNavButton');
 navButtons.forEach(button => {
     button.addEventListener('click', (event) => {
         const pageName = event.currentTarget.dataset.pageName;
-        navigate(pageName);
+        navigate("mainContent", pageName);
     });
 });
 
-async function navigate(page) {
-    const layout = document.getElementById("mainContent");
+async function navigate(contentId, page) {
+    const layout = document.getElementById(contentId);
     const route = routes[page];
 
     if (!route) return;
@@ -52,6 +59,11 @@ async function navigate(page) {
 
             // Clona el contenido del template y lo adjunta al Shadow DOM
             shadowRoot.appendChild(template.content.cloneNode(true));
+
+            // Llama a la función de configuración
+            if (route.setup) {
+                route.setup();
+            }
         } else {
             // Manejar si el template no es encontrado
             layout.innerHTML = 'Error: Template not found.';
@@ -65,4 +77,4 @@ async function navigate(page) {
 }
 
 // Llamada inicial para cargar la página de inicio
-navigate("home");
+navigate("mainContent", "home");
