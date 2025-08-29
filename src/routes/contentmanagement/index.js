@@ -1,12 +1,14 @@
 const contentManagementRoute = {
-    setup: () => {
+    setup: (shadowRoot, navigate) => {
 
-        const navButtons = document.querySelectorAll('.contentManagementNavButton');
+        const navButtons = shadowRoot.querySelectorAll('.contentManagementNavButton');
+
+        console.log(navButtons);
 
         navButtons.forEach(button => {
             button.addEventListener('click', (event) => {
                 const pageName = event.currentTarget.dataset.pageName;
-                navigate("contentManagementContent", pageName);
+                navigate(shadowRoot, "contentManagementContent", pageName);
             });
         });
 

@@ -14,6 +14,14 @@ const routes = {
         path: "./src/routes/contentmanagement/rooms/index.html",
         templateId: "#rooms-template"
     },
+    clients: {
+        path: "./src/routes/contentmanagement/clients/index.html",
+        templateId: "#clients-template"
+    },
+    booking: {
+        path: "./src/routes/contentmanagement/booking/index.html",
+        templateId: "#booking-template"
+    },
     settings: {
         path: "./src/routes/settings/index.html",
         templateId: "#settings-template"
@@ -25,12 +33,12 @@ const navButtons = document.querySelectorAll('.mainNavButton');
 navButtons.forEach(button => {
     button.addEventListener('click', (event) => {
         const pageName = event.currentTarget.dataset.pageName;
-        navigate("mainContent", pageName);
+        navigate(document, "mainContent", pageName);
     });
 });
 
-async function navigate(contentId, page) {
-    const layout = document.getElementById(contentId);
+async function navigate(root, contentId, page) {
+    const layout = root.getElementById(contentId);
     const route = routes[page];
 
     if (!route) return;
@@ -48,7 +56,7 @@ async function navigate(contentId, page) {
 
         if (template) {
             // Verificar si el Shadow DOM ya existe
-            let shadowRoot = layout.shadowRoot;
+            let shadowRoot = layout?.shadowRoot;
             if (!shadowRoot) {
                 // Si no existe, lo crea solo una vez
                 shadowRoot = layout.attachShadow({ mode: 'open' });
@@ -62,7 +70,7 @@ async function navigate(contentId, page) {
 
             // Llama a la función de configuración
             if (route.setup) {
-                route.setup();
+                route.setup(shadowRoot, navigate);
             }
         } else {
             // Manejar si el template no es encontrado
