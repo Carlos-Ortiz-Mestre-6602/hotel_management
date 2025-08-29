@@ -1,7 +1,12 @@
 <template id="clients-template">
     <link rel="stylesheet" href="./src/routes/contentmanagement/clients/styles.css">
     <div class="clientsPage">
-        <header></header>
+        <header class="clientsPageHeader">
+            <h1>Clients</h1>
+            <button id="newClientButton" commandfor="clientsFormDialog" command="show-modal">
+                New client
+            </button>
+        </header>
         <div>
             <table class="clientsTable">
                 <thead>
@@ -12,10 +17,68 @@
                         <th scope="col">Country</th>
                         <th scope="col">Gender</th>
                         <th scope="col">Age</th>
+                        <th scope="col" aria-label="Update"></th>
+                        <th scope="col" aria-label="Delete"></th>
                     </tr>
                 </thead>
                 <tbody id="clientsTableBody"></tbody>
             </table>
         </div>
+        <dialog id="clientsFormDialog">
+            <div class="clientsFormContent">
+                <header>
+                    <span>Clients form</span>
+                    <button commandfor="clientsFormDialog" command="close" aria-label="Close" value="close">
+                        <svg role="none" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960"
+                            width="16px" fill="#000000">
+                            <path
+                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                    </button>
+                </header>
+                <div>
+                    <form id="clientsForm">
+                        <div class="clientsFormFields">
+                            <input id="clientId" name="id" type="text" readonly hidden>
+                            <label style="grid-column: 1 / 3;">
+                                Fullname
+                                <input type="text" name="fullname" required maxlength="250">
+                            </label>
+                            <label>
+                                Identification
+                                <input type="text" name="identification" required maxlength="250">
+                            </label>
+                            <label>
+                                Country
+                                <select name="country" id="countrySelect" style="max-width: 200px;"></select>
+                            </label>
+                            <label>
+                                Gender
+                                <select name="gender">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </label>
+                            <label>
+                                Age
+                                <input type="number" name="age">
+                            </label>
+                            <label style="grid-column: 1 / 4;">
+                                Description
+                                <textarea name="description"></textarea>
+                            </label>
+                        </div>
+                        <div class="clientsFormButtons">
+                            <button type="button" commandfor="clientsFormDialog" command="close" value="cancel">
+                                Cancel
+                            </button>
+                            <button type="submit" commandfor="clientsFormDialog" command="close" value="save">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </div>
 </template>

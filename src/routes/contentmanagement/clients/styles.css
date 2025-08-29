@@ -2,6 +2,21 @@
     padding: 1rem;
 }
 
+.clientsPageHeader {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+        margin: 0;
+    }
+
+    button {
+        font-size: medium;
+    }
+}
+
 .clientsTable {
     width: 100%;
     border-collapse: collapse;
@@ -26,5 +41,54 @@
 
     tbody>tr:nth-of-type(even) {
         background-color: rgba(var(--color-background-dark-rgb), 0.1);
+    }
+}
+
+#clientsFormDialog {
+    width: 100%;
+    max-width: 500px;
+
+    button {
+        cursor: pointer;
+    }
+
+    .clientsFormContent {
+        display: grid;
+        grid-template-rows: 0.1fr 1fr 0.1fr;
+        height: 100%;
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+
+            button {
+                display: flex;
+                align-items: center;
+
+                border: none;
+                background-color: transparent;
+            }
+        }
+
+        .clientsFormFields {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+
+            label {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .clientsFormButtons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+
+            margin-top: 2rem;
+        }
     }
 }

@@ -10,6 +10,9 @@ const contentManagementRoute = {
             });
         });
 
+        // Default page
+        navigate(shadowRoot, "contentManagementContent", "booking");
+
     }
 }
 
