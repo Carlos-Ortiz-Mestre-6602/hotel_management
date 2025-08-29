@@ -7,6 +7,14 @@
     --color-background-light: #fff;
     --color-background-dark: #212529;
 
+    /* Paleta de colores rgb */
+    --color-primary-rgb: 52, 80, 156;
+    --color-secondary-rgb: 108, 117, 125;
+    --color-text-dark-rgb: 51, 51, 51;
+    --color-text-light-rgb: 248, 249, 250;
+    --color-background-light-rgb: 255, 255, 255;
+    --color-background-dark-rgb: 33, 37, 41;
+
     /* Tipografía */
     --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-size-base: 16px;

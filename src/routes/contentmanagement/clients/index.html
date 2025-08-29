@@ -1,6 +1,21 @@
 <template id="clients-template">
     <link rel="stylesheet" href="./src/routes/contentmanagement/clients/styles.css">
     <div class="clientsPage">
-        Clients
+        <header></header>
+        <div>
+            <table class="clientsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Id.</th>
+                        <th scope="col">Fullname</th>
+                        <th scope="col">Identification</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Age</th>
+                    </tr>
+                </thead>
+                <tbody id="clientsTableBody"></tbody>
+            </table>
+        </div>
     </div>
 </template>
