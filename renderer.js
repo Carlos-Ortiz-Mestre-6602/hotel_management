@@ -38,7 +38,10 @@ navButtons.forEach(button => {
 });
 
 async function navigate(root, contentId, page) {
-    const layout = root.getElementById(contentId);
+    const layout = root?.getElementById(contentId);
+
+    if (!layout) return;
+
     const route = routes[page];
 
     if (!route) return;
