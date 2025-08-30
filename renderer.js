@@ -42,6 +42,31 @@ navButtons.forEach((button) => {
   });
 });
 
+async function findInPage(text) {
+  const win = BrowserWindow.getFocusedWindow();
+
+  const options = {
+    forward: true,
+    findNext: false,
+    matchCase: false,
+    wordStart: false,
+    medialCapitalAsWordStart: false,
+  };
+
+  if (text.length > 0) {
+    win.webContents.findInPage(text, options);
+  } else {
+    win.webContents.stopFindInPage("clearSelection");
+  }
+
+  win.webContents.on("found-in-page", (event, result) => {
+    console.log(result.requestId);
+    console.log(result.activeMatchOrdinal);
+    console.log(result.matches);
+    console.log(result.selectionArea);
+  });
+}
+
 async function navigate(root, contentId, page) {
   const layout = root?.getElementById(contentId);
 
@@ -78,7 +103,12 @@ async function navigate(root, contentId, page) {
 
       // Llama a la función de configuración
       if (route.setup) {
-        route.setup(shadowRoot, navigate);
+        const utils = {
+            navigate,
+            findInPage
+        }
+
+        route.setup(shadowRoot, utils);
       }
     } else {
       // Manejar si el template no es encontrado
@@ -90,30 +120,6 @@ async function navigate(root, contentId, page) {
     layout.innerHTML = "<p>Error loading content.</p>";
     if (layout.shadowRoot) layout.shadowRoot.innerHTML = ""; // Limpia el Shadow DOM
   }
-}
-
-async function findInPage(text) {
-  const win = BrowserWindow.getFocusedWindow();
-
-  const options = {
-    forward: true,
-    findNext: false,
-    matchCase: false,
-    wordStart: false,
-    medialCapitalAsWordStart: false,
-  };
-
-  if (text) {
-    win.webContents.findInPage(text, options);
-  } else {
-  }
-
-  win.webContents.on("found-in-page", (event, result) => {
-    console.log(result.requestId);
-    console.log(result.activeMatchOrdinal);
-    console.log(result.matches);
-    console.log(result.selectionArea);
-  });
 }
 
 // Llamada inicial para cargar la página de inicio
