@@ -1,9 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require('electron/main')
-const sqlite3 = require('sqlite3').verbose()
-const path = require('node:path')
+const { app, BrowserWindow, ipcMain } = require('electron/main');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 
 // Handlers
-const clientsHandler = require("./src/handlers/clients")
+const clientsHandler = require("./src/handlers/clients");
 
 let db;
 
@@ -14,14 +14,20 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
-  })
+  });
 
-  win.loadFile('index.html')
+  win.loadFile('index.html');
 }
 
 app.whenReady().then(() => {
 
-  const dbPath = path.join(__dirname, 'database.db');
+  let dbPath;
+
+  if (app.isPackaged) {
+    dbPath = path.join(process.resourcesPath, 'database.db');
+  } else {
+    dbPath = path.join(__dirname, 'database.db');
+  }
 
   db = new sqlite3.Database(dbPath, (err) => {
     if (err) console.error('Error opening database', err);
@@ -32,17 +38,17 @@ app.whenReady().then(() => {
   clientsHandler.handler(db);
 
   // Create window
-  createWindow()
+  createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+      createWindow();
     }
-  })
+  });
 })
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
 })
