@@ -80,5 +80,31 @@
                 </div>
             </div>
         </dialog>
+        <dialog id="clientDeleteDialog">
+            <div class="clientDeleteContent">
+                <header>
+                    <span>Delete client?</span>
+                    <button commandfor="clientDeleteDialog" command="close" aria-label="Close" value="close">
+                        <svg role="none" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960"
+                            width="16px" fill="#000000">
+                            <path
+                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                    </button>
+                </header>
+                <p>Are you sure? This action cannot be undone</p>
+                <form id="clientDeleteForm">
+                    <input id="clientDeleteId" type="text" name="id" readonly hidden>
+                    <div class="clientDeleteButtons">
+                        <button type="button" commandfor="clientDeleteDialog" command="close" value="cancel">
+                            Cancel
+                        </button>
+                        <button type="submit" commandfor="clientDeleteDialog" command="close" value="delete">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
     </div>
 </template>

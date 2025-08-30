@@ -67,6 +67,25 @@ const handler = (db) => {
         });
     });
 
+    ipcMain.handle('delete-client', async (event, clientId) => {
+        return new Promise((resolve, reject) => {
+            const sql = `DELETE FROM clients WHERE id = ?`;
+
+            db.run(sql, [clientId], function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    if (this.changes > 0) {
+                        resolve(clientId);
+                    } else {
+                        reject("Client not found");
+                    }
+                }
+            });
+
+        });
+    });
+
 }
 
 module.exports = {

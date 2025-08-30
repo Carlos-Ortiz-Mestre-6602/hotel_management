@@ -92,3 +92,41 @@
         }
     }
 }
+
+#clientDeleteDialog {
+    width: 100%;
+    max-width: 400px;
+
+    button {
+        cursor: pointer;
+    }
+
+    .clientDeleteContent {
+        display: grid;
+        grid-template-rows: 0.1fr 1fr 0.1fr;
+        height: 100%;
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+
+            button {
+                display: flex;
+                align-items: center;
+
+                border: none;
+                background-color: transparent;
+            }
+        }
+
+        .clientDeleteButtons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+
+            margin-top: 2rem;
+        }
+    }
+}

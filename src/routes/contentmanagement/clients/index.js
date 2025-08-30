@@ -2,14 +2,20 @@ const clientsRoute = {
     setup: (shadowRoot) => {
 
         const clientsForm = shadowRoot.getElementById("clientsForm");
+        const clienteDeleteForm = shadowRoot.getElementById("clientDeleteForm");
 
         function openClientFormDialog() {
             const dialog = shadowRoot.getElementById("clientsFormDialog");
             dialog.showModal();
         }
 
+        function openClientDeleteDialog() {
+            const dialog = shadowRoot.getElementById("clientDeleteDialog");
+            dialog.showModal();
+        }
+
         // Updaye client by id
-        async function update(clientId) {
+        async function onupdate(clientId) {
 
             try {
                 const client = await window.clientsAPI.getClientById(clientId);
@@ -32,8 +38,18 @@ const clientsRoute = {
 
         }
 
+        // Delete client
+        async function ondelete(clientId) {
+
+            const idField = shadowRoot.getElementById("clientDeleteId");
+            idField.value = clientId;
+
+            openClientDeleteDialog();
+
+        }
+
         // List clients
-        async function list() {
+        async function onlist() {
             const clientsTableBody = shadowRoot.getElementById("clientsTableBody");
 
             clientsTableBody.innerHTML = '';
@@ -73,7 +89,7 @@ const clientsRoute = {
                     const updateButton = document.createElement('button');
                     updateButton.innerText = "Update";
                     updateButton.addEventListener('click', () => {
-                        update(client.id);
+                        onupdate(client.id);
                     })
                     updateCell.appendChild(updateButton);
                     updateCell.style = "text-align: center"
@@ -83,7 +99,7 @@ const clientsRoute = {
                     const deleteButton = document.createElement('button');
                     deleteButton.innerText = "Delete";
                     deleteButton.addEventListener('click', () => {
-                        console.log("Eliminar el cliente con id: ", client.id);
+                        ondelete(client.id);
                     })
                     deleteCell.appendChild(deleteButton);
                     newRow.appendChild(deleteCell);
@@ -103,7 +119,7 @@ const clientsRoute = {
 
             }
         }
-        list();
+        onlist();
 
         // Agregar paises al select de paises
         (async function listCountries() {
@@ -140,7 +156,7 @@ const clientsRoute = {
             clientsForm.reset();
         })
 
-        // Agregando evento al formulario
+        // Agregando evento al formulario de creacion
         clientsForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
@@ -160,8 +176,20 @@ const clientsRoute = {
 
             }
 
-            list();
+            onlist();
         });
+
+        clienteDeleteForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+
+            const clientId = formData.get("id");
+
+            window.clientsAPI.deleteClient(clientId);
+
+            onlist();
+        })
     }
 }
 
