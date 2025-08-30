@@ -48,16 +48,13 @@ const handler = (db) => {
                         startDate: rows[0].startDate,
                         endDate: rows[0].endDate,
                         status: rows[0].status,
-                        room: {
-                            id: rows[0].roomId
-                        },
-                        clients: [],
+                        description: rows[0].description,
+                        roomId: rows[0].roomId,
+                        clientIds: [],
                     };
 
                     rows.forEach(row => {
-                        booking.clients.push({
-                            id: row.clientId
-                        });
+                        booking.clientIds.push(row.clientId);
                     });
 
                     resolve(booking);
@@ -197,10 +194,13 @@ const handler = (db) => {
                             SELECT roomId
                             FROM bookings
                             WHERE
-                                (bookings.endDate >= ? AND bookings.startDate <= ?)
+                                ((bookings.endDate >= ? AND bookings.startDate <= ?) 
+                                AND (bookings.id != ? OR ? IS NULL))
                         );`;
 
-            db.all(sql, [data.startDate, data.endDate], (err, rows) => {
+            const bookingId = data.bookingId ?? null;
+
+            db.all(sql, [data.startDate, data.endDate, bookingId, bookingId], (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {

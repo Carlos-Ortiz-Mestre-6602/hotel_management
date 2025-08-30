@@ -25,11 +25,9 @@ const bookingsRoute = {
                     }
                 });
 
-                listAvailablesRooms(booking.room.id);
+                listAvailablesRooms(booking.roomId, booking.id);
 
-                const clientIds = booking.clients.map(client => client.id);
-
-                listClients(clientIds);
+                listClients(booking.clientIds);
 
                 openBookingFormDialog();
 
@@ -151,7 +149,7 @@ const bookingsRoute = {
         const bookingStartDate = shadowRoot.getElementById('bookingStartDate');
         const bookingEndDate = shadowRoot.getElementById('bookingEndDate');
 
-        async function listAvailablesRooms(value) {
+        async function listAvailablesRooms(value, bookingId) {
             const startDate = bookingStartDate.value;
             const endDate = bookingEndDate.value;
 
@@ -160,15 +158,15 @@ const bookingsRoute = {
                     // Limpiar las opciones anteriores
                     roomSelect.innerHTML = '<option value="">--Select a room--</option>';
 
-                    const availableRooms = await window.bookingsAPI.getAvailableRooms({ startDate, endDate });
+                    const availableRooms = await window.bookingsAPI.getAvailableRooms({ startDate, endDate, bookingId });
 
                     availableRooms.forEach(room => {
                         const option = document.createElement('option');
                         option.value = room.id;
-                        if (room.id === Number(value)) option.selected = true;
+                        if (room.id == value) option.selected = true;
                         option.textContent = `${room.number} (${room.condition}) $${room.price}`;
                         roomSelect.appendChild(option);
-                    })
+                    });
 
                 } catch (error) {
 
