@@ -108,11 +108,12 @@ const bookingsRoute = {
         // Agregando evento a boton de nuevo booking
         const newBookingButton = shadowRoot.getElementById('newBookingButton');
         newBookingButton.addEventListener('click', () => {
+            roomSelect.innerHTML = '<option value="">--Select a room--</option>';
             bookingsForm.reset();
         });
 
         // Agregando evento al formulario de creacion
-        bookingsForm.addEventListener('submit', (event) => {
+        bookingsForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const formData = new FormData(event.target);
@@ -129,11 +130,11 @@ const bookingsRoute = {
 
                 if (id) {
 
-                    window.bookingsAPI.updateBooking(data);
+                    await window.bookingsAPI.updateBooking(data);
 
                 } else {
 
-                    window.bookingsAPI.createBooking(data);
+                    await window.bookingsAPI.createBooking(data);
 
                 }
 

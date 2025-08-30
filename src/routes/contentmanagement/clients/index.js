@@ -161,7 +161,7 @@ const clientsRoute = {
         });
 
         // Agregando evento al formulario de creacion
-        clientsForm.addEventListener('submit', (event) => {
+        clientsForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const formData = new FormData(event.target);
@@ -172,11 +172,11 @@ const clientsRoute = {
 
             if (id) {
 
-                window.clientsAPI.updateClient(data);
+                await window.clientsAPI.updateClient(data);
 
             } else {
 
-                window.clientsAPI.createClient(data);
+                await window.clientsAPI.createClient(data);
 
             }
 

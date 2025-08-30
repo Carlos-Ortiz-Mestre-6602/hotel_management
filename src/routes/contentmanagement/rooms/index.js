@@ -137,7 +137,7 @@ const roomsRoute = {
         });
 
         // Agregando evento al formulario de creacion
-        roomsForm.addEventListener('submit', (event) => {
+        roomsForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const formData = new FormData(event.target);
@@ -150,11 +150,11 @@ const roomsRoute = {
 
                 if (id) {
 
-                    window.roomsAPI.updateRoom(data);
+                    await window.roomsAPI.updateRoom(data);
 
                 } else {
 
-                    window.roomsAPI.createRoom(data);
+                    await window.roomsAPI.createRoom(data);
 
                 }
 

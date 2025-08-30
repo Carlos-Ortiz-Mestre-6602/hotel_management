@@ -197,10 +197,10 @@ const handler = (db) => {
                             SELECT roomId
                             FROM bookings
                             WHERE
-                                (endDate > ? AND startDate < ?)
+                                (bookings.endDate >= ? AND bookings.startDate <= ?)
                         );`;
 
-            db.all(sql, [data.endDate, data.startDate], (err, rows) => {
+            db.all(sql, [data.startDate, data.endDate], (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
