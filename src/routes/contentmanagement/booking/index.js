@@ -93,14 +93,7 @@ const bookingsRoute = {
             } catch (error) {
 
                 console.error(error);
-
-                const errorRow = document.createElement('tr');
-                const errorCell = document.createElement('td');
-                errorCell.colSpan = 6;
-                errorCell.innerText = "No bookings data";
-
-                errorRow.appendChild(errorCell);
-                bookingsTableBody.appendChild(errorRow);
+                bookingsTableBody.innerHTML = '<tr><td colspan="7">No data</td></tr>';
 
             }
         }
@@ -115,7 +108,6 @@ const bookingsRoute = {
         // Agregando evento a boton de nuevo booking
         const newBookingButton = shadowRoot.getElementById('newBookingButton');
         newBookingButton.addEventListener('click', () => {
-            roomSelect.disabled = true;
             bookingsForm.reset();
         });
 
@@ -164,7 +156,6 @@ const bookingsRoute = {
 
             if (startDate && endDate) {
                 try {
-                    roomSelect.disabled = false;
                     // Limpiar las opciones anteriores
                     roomSelect.innerHTML = '<option value="">--Select a room--</option>';
 
@@ -174,27 +165,20 @@ const bookingsRoute = {
                         const option = document.createElement('option');
                         option.value = room.id;
                         if (room.id === Number(value)) option.selected = true;
-                        option.textContent = `${room.number} (${room.status}, ${room.condition})`;
+                        option.textContent = `${room.number} (${room.condition}) $${room.price}`;
                         roomSelect.appendChild(option);
                     })
 
                 } catch (error) {
 
                     console.error(error);
-
-                    const errorOption = document.createElement('option');
-                    errorOption.textContent = "--No available rooms--";
-                    roomSelect.appendChild(errorOption);
-                    roomSelect.disabled = true;
+                    roomSelect.innerHTML = '<option value="">--No available rooms--</option>'
 
                 }
 
             } else {
 
-                const errorOption = document.createElement('option');
-                errorOption.textContent = "--Select a room--";
-                roomSelect.appendChild(errorOption);
-                roomSelect.disabled = true;
+                roomSelect.innerHTML = '<option value="">--Select a room--</option>';
 
             }
 
@@ -275,10 +259,7 @@ const bookingsRoute = {
             } catch (error) {
 
                 console.error(error);
-
-                const errorOption = document.createElement('option');
-                errorOption.textContent = "--No options--";
-                bookingClientsSelect.appendChild(errorOption);
+                bookingClientsSelect.innerHTML = '';
 
             }
         };

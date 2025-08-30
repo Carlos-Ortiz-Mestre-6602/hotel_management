@@ -29,7 +29,11 @@
                         <th scope="col" aria-label="Update"></th>
                     </tr>
                 </thead>
-                <tbody id="bookingsTableBody"></tbody>
+                <tbody id="bookingsTableBody">
+                    <tr>
+                        <td colspan="7">No data</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <dialog id="bookingsFormDialog">
@@ -50,7 +54,7 @@
                             <input id="bookingId" name="id" type="text" readonly hidden>
                             <label>
                                 Number
-                                <input id="bookingNumberInput" type="text" name="number" required disabled >
+                                <input id="bookingNumberInput" type="text" name="number" required placeholder="Auto created" >
                             </label>
                             <label>
                                 Start date
@@ -63,7 +67,7 @@
                             <label>
                                 Room
                                 <!-- Waiting for the startDate and endDate to be completed to change the disabled status -->
-                                <select id="roomSelect" name="roomId" required disabled>
+                                <select id="roomSelect" name="roomId" required>
                                     <option value="">--Select a room--</option>
                                 </select>
                             </label>
@@ -91,7 +95,7 @@
                             <button type="button" commandfor="bookingsFormDialog" command="close" value="cancel">
                                 Cancel
                             </button>
-                            <button type="submit" commandfor="bookingsFormDialog" command="close" value="save">
+                            <button type="submit">
                                 Save
                             </button>
                         </div>

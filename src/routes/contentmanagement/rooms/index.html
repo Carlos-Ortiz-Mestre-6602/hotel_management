@@ -31,7 +31,11 @@
                         <th scope="col" aria-label="Delete"></th>
                     </tr>
                 </thead>
-                <tbody id="roomsTableBody"></tbody>
+                <tbody id="roomsTableBody">
+                    <tr>
+                        <td colspan="7">No data</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <dialog id="roomsFormDialog">
@@ -66,7 +70,6 @@
                                 Status
                                 <select name="status" required>
                                     <option value="available">Available</option>
-                                    <option value="occupied">Occupied</option>
                                     <option value="out_of_service">Out of service</option>
                                     <option value="cleaning">Cleaning</option>
                                 </select>
@@ -91,7 +94,7 @@
                             <button type="button" commandfor="roomsFormDialog" command="close" value="cancel">
                                 Cancel
                             </button>
-                            <button type="submit" commandfor="roomsFormDialog" command="close" value="save">
+                            <button type="submit">
                                 Save
                             </button>
                         </div>
@@ -118,7 +121,7 @@
                         <button type="button" commandfor="roomDeleteDialog" command="close" value="cancel">
                             Cancel
                         </button>
-                        <button type="submit" commandfor="roomDeleteDialog" command="close" value="delete">
+                        <button type="submit">
                             Delete
                         </button>
                     </div>

@@ -118,14 +118,7 @@ const roomsRoute = {
             } catch (error) {
 
                 console.error(error);
-
-                const errorRow = document.createElement('tr');
-                const errorCell = document.createElement('td');
-                errorCell.colSpan = 6;
-                errorCell.innerText = "No rooms data";
-
-                errorRow.appendChild(errorCell);
-                roomsTableBody.appendChild(errorRow);
+                roomsTableBody.innerHTML = '<tr><td colspan="9">No data</td></tr>';
 
             }
         }

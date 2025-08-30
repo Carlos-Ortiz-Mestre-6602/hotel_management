@@ -114,14 +114,7 @@ const clientsRoute = {
             } catch (error) {
 
                 console.error(error);
-
-                const errorRow = document.createElement('tr');
-                const errorCell = document.createElement('td');
-                errorCell.colSpan = 6;
-                errorCell.innerText = "No clients data";
-
-                errorRow.appendChild(errorCell);
-                clientsTableBody.appendChild(errorRow);
+                clientsTableBody.innerHTML = '<tr><td colspan="8">No data</td></tr>'
 
             }
         }
@@ -137,6 +130,8 @@ const clientsRoute = {
 
                 countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
+                countrySelect.innerHTML = '<option value="">--Select a country--</option>';
+
                 countries.forEach(country => {
                     const option = document.createElement('option');
                     option.value = country.name.common;
@@ -147,10 +142,7 @@ const clientsRoute = {
             } catch (error) {
 
                 console.error(error);
-
-                const errorOption = document.createElement('option');
-                errorOption.textContent = "--No options--";
-                countrySelect.appendChild(errorOption);
+                countrySelect.innerHTML = '<option value="">--No options--</option>';
 
             }
 
