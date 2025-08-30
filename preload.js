@@ -1,5 +1,11 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
+// General
+contextBridge.exposeInMainWorld('electronAPI', {
+  findInPage: (text, options) => ipcRenderer.invoke('find-in-page', text, options),
+  stopFindInPage: (action) => ipcRenderer.invoke('stop-find-in-page', action)
+});
+
 // Clients
 contextBridge.exposeInMainWorld('clientsAPI', {
   getClients: () => ipcRenderer.invoke('get-clients'),

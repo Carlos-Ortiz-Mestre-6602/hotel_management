@@ -84,3 +84,35 @@ body {
 #mainContent {
     width: calc(100% - 55px);
 }
+
+.search-bar {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+
+    max-width: fit-content;
+    height: 35px;
+
+    padding: 8px;
+    background-color: var(--color-background-light);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 1000;
+
+    #search-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 10px;
+        margin-right: 10px;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+}

@@ -1,5 +1,3 @@
-import { BrowserWindow } from "electron/main";
-
 // Routes
 import contentManagementRoute from "./src/routes/contentmanagement/index.js";
 import clientsRoute from "./src/routes/contentmanagement/clients/index.js";
@@ -43,8 +41,6 @@ navButtons.forEach((button) => {
 });
 
 async function findInPage(text) {
-  const win = BrowserWindow.getFocusedWindow();
-
   const options = {
     forward: true,
     findNext: false,
@@ -104,8 +100,8 @@ async function navigate(root, contentId, page) {
       // Llama a la función de configuración
       if (route.setup) {
         const utils = {
-            navigate,
-            findInPage
+          navigate,
+          findInPage
         }
 
         route.setup(shadowRoot, utils);
@@ -124,3 +120,49 @@ async function navigate(root, contentId, page) {
 
 // Llamada inicial para cargar la página de inicio
 navigate(document, "mainContent", "home");
+
+// Busqueda global en la pagina
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    e.preventDefault();
+    const searchBar = document.getElementById('search-bar');
+    searchBar.style.display = 'flex'; // Usar flex para alinear los elementos
+    const searchInput = document.getElementById('search-input');
+    searchInput.focus();
+  }
+});
+
+const searchInput = document.getElementById('search-input');
+const findNextButton = document.getElementById('find-next-button');
+const findPrevButton = document.getElementById('find-prev-button');
+const closeButton = document.getElementById('close-button');
+
+searchInput.addEventListener('change', () => {
+  const text = searchInput.value;
+  if (text) {
+    window.electronAPI.findInPage(text, { findNext: true });
+  } else {
+    window.electronAPI.stopFindInPage('clearSelection');
+  }
+});
+
+findNextButton.addEventListener('click', () => {
+  const text = searchInput.value;
+  if (text) {
+    window.electronAPI.findInPage(text, { findNext: true });
+  }
+});
+
+findPrevButton.addEventListener('click', () => {
+  const text = searchInput.value;
+  if (text) {
+    window.electronAPI.findInPage(text, { findNext: true, forward: false });
+  }
+});
+
+closeButton.addEventListener('click', () => {
+  const searchBar = document.getElementById('search-bar');
+  searchBar.style.display = 'none';
+  searchInput.value = '';
+  window.electronAPI.stopFindInPage('clearSelection');
+});
