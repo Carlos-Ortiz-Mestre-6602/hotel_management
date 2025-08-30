@@ -12,7 +12,7 @@ const clientsRoute = {
         async function update(clientId) {
 
             try {
-                const client = await window.electronAPI.getClientById(clientId);
+                const client = await window.clientsAPI.getClientById(clientId);
 
                 Object.keys(client).forEach(fieldName => {
                     const field = clientsForm.querySelector(`[name="${fieldName}"]`);
@@ -39,7 +39,7 @@ const clientsRoute = {
             clientsTableBody.innerHTML = '';
 
             try {
-                const clients = await window.electronAPI.getClients();
+                const clients = await window.clientsAPI.getClients();
 
                 clients.forEach(client => {
                     const newRow = document.createElement('tr');
@@ -111,7 +111,7 @@ const clientsRoute = {
 
             try {
 
-                const countries = await window.electronAPI.getCountries();
+                const countries = await window.clientsAPI.getCountries();
 
                 countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
@@ -152,11 +152,11 @@ const clientsRoute = {
 
             if (id) {
 
-                window.electronAPI.updateClient(data);
+                window.clientsAPI.updateClient(data);
 
             } else {
 
-                window.electronAPI.createClient(data);
+                window.clientsAPI.createClient(data);
 
             }
 
