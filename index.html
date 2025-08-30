@@ -8,7 +8,7 @@
     <meta http-equiv="X-Content-Security-Policy"
         content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
     <title>Motel management</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -49,6 +49,25 @@
     </nav>
 
     <main id="mainContent"></main>
+
+    <div id="search-bar" class="search-bar" style="display: none;">
+        <input type="text" id="search-input" placeholder="Search...">
+        <button id="find-prev-button" title="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000">
+                <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
+            </svg>
+        </button>
+        <button id="find-next-button" title="Next"><svg xmlns="http://www.w3.org/2000/svg" height="16px"
+                viewBox="0 -960 960 960" width="16px" fill="#000000">
+                <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+            </svg></button>
+        <button id="close-button" title="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000">
+                <path
+                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+            </svg>
+        </button>
+    </div>
 </body>
 <script src="./renderer.js" type="module"></script>
 

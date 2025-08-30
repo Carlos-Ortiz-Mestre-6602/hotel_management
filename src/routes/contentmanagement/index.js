@@ -1,17 +1,17 @@
 const contentManagementRoute = {
-    setup: (shadowRoot, navigate) => {
+    setup: (shadowRoot, utils) => {
 
         const navButtons = shadowRoot.querySelectorAll('.contentManagementNavButton');
 
         navButtons.forEach(button => {
             button.addEventListener('click', (event) => {
                 const pageName = event.currentTarget.dataset.pageName;
-                navigate(shadowRoot, "contentManagementContent", pageName);
+                utils.navigate(shadowRoot, "contentManagementContent", pageName);
             });
         });
 
         // Default page
-        navigate(shadowRoot, "contentManagementContent", "booking");
+        utils.navigate(shadowRoot, "contentManagementContent", "booking");
 
     }
 }

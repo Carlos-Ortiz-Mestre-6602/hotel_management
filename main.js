@@ -4,6 +4,7 @@ const path = require('path');
 
 // Handlers
 const clientsHandler = require("./src/handlers/clients");
+const roomsHandler = require("./src/handlers/rooms");
 
 let db;
 
@@ -35,7 +36,18 @@ app.whenReady().then(() => {
   });
 
   // Handlers
+  ipcMain.handle('find-in-page', (event, text, options) => {
+    const webContents = event.sender;
+    webContents.findInPage(text, options);
+  });
+
+  ipcMain.handle('stop-find-in-page', (event, action) => {
+    const webContents = event.sender;
+    webContents.stopFindInPage(action);
+  });
+
   clientsHandler.handler(db);
+  roomsHandler.handler(db);
 
   // Create window
   createWindow();
