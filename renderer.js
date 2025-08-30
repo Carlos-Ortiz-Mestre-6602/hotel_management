@@ -1,5 +1,6 @@
 // Routes
 import contentManagementRoute from "./src/routes/contentmanagement/index.js";
+import bookingsRoute from "./src/routes/contentmanagement/booking/index.js";
 import clientsRoute from "./src/routes/contentmanagement/clients/index.js";
 import roomsRoute from "./src/routes/contentmanagement/rooms/index.js";
 
@@ -13,19 +14,20 @@ const routes = {
     templateId: "#content-management-template",
     setup: contentManagementRoute.setup,
   },
-  rooms: {
-    path: "./src/routes/contentmanagement/rooms/index.html",
-    templateId: "#rooms-template",
-    setup: roomsRoute.setup,
+  booking: {
+    path: "./src/routes/contentmanagement/booking/index.html",
+    templateId: "#booking-template",
+    setup: bookingsRoute.setup,
   },
   clients: {
     path: "./src/routes/contentmanagement/clients/index.html",
     templateId: "#clients-template",
     setup: clientsRoute.setup,
   },
-  booking: {
-    path: "./src/routes/contentmanagement/booking/index.html",
-    templateId: "#booking-template",
+  rooms: {
+    path: "./src/routes/contentmanagement/rooms/index.html",
+    templateId: "#rooms-template",
+    setup: roomsRoute.setup,
   },
   settings: {
     path: "./src/routes/settings/index.html",

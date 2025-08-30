@@ -6,6 +6,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
   stopFindInPage: (action) => ipcRenderer.invoke('stop-find-in-page', action)
 });
 
+// Bookings
+contextBridge.exposeInMainWorld('bookingsAPI', {
+  getBookings: () => ipcRenderer.invoke('get-bookings'),
+  getBookingById: (bookingId) => ipcRenderer.invoke('get-booking-byId', bookingId),
+  createBooking: (data) => ipcRenderer.invoke('create-booking', data),
+  updateBooking: (data) => ipcRenderer.invoke('update-booking', data),
+  getAvailableRooms: (data) => ipcRenderer.invoke('get-available-rooms', data)
+});
+
 // Clients
 contextBridge.exposeInMainWorld('clientsAPI', {
   getClients: () => ipcRenderer.invoke('get-clients'),

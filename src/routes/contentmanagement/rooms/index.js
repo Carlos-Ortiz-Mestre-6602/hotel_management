@@ -153,13 +153,21 @@ const roomsRoute = {
 
             const data = Object.fromEntries(formData.entries());
 
-            if (id) {
+            try {
 
-                window.roomsAPI.updateRoom(data);
+                if (id) {
 
-            } else {
+                    window.roomsAPI.updateRoom(data);
 
-                window.roomsAPI.createRoom(data);
+                } else {
+
+                    window.roomsAPI.createRoom(data);
+
+                }
+
+            } catch (error) {
+
+                console.log(error);
 
             }
 

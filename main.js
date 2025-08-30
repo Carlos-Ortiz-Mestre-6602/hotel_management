@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 // Handlers
+const bookingsHandler = require('./src/handlers/bookings');
 const clientsHandler = require("./src/handlers/clients");
 const roomsHandler = require("./src/handlers/rooms");
 
@@ -46,6 +47,7 @@ app.whenReady().then(() => {
     webContents.stopFindInPage(action);
   });
 
+  bookingsHandler.handler(db);
   clientsHandler.handler(db);
   roomsHandler.handler(db);
 

@@ -1,3 +1,106 @@
 .bookingPage {
     padding: 1rem;
 }
+
+.bookingsPageHeader {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+        margin: 0;
+    }
+
+    .bookingsPageHeaderContent {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        button {
+            display: flex;
+            align-items: center;
+            font-size: medium;
+        }
+    }
+}
+
+.bookingsTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--color-background-dark);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+
+    thead {
+        background-color: rgba(var(--color-background-dark-rgb), 0.4);
+    }
+
+    th,
+    td {
+        border: 1px solid rgba(var(--color-background-dark-rgb), 0.1);
+        padding: 8px 10px;
+    }
+
+    td:last-of-type {
+        text-align: center;
+    }
+
+    tbody>tr:nth-of-type(even) {
+        background-color: rgba(var(--color-background-dark-rgb), 0.1);
+    }
+}
+
+#bookingsFormDialog {
+    width: 100%;
+    max-width: 600px;
+
+    button {
+        cursor: pointer;
+    }
+
+    .bookingsFormContent {
+        display: grid;
+        grid-template-rows: 0.1fr 1fr 0.1fr;
+        height: 100%;
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+
+            button {
+                display: flex;
+                align-items: center;
+
+                border: none;
+                background-color: transparent;
+            }
+        }
+
+        .bookingsFormFields {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+
+            label {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #bookingClientsSelect {
+                aspect-ratio: 16 / 9;
+            }
+        }
+
+        .bookingsFormButtons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+
+            margin-top: 2rem;
+        }
+    }
+}
