@@ -2,7 +2,7 @@ const clientsRoute = {
     setup: (shadowRoot, utils) => {
 
         const clientsForm = shadowRoot.getElementById("clientsForm");
-        const clienteDeleteForm = shadowRoot.getElementById("clientDeleteForm");
+        const clientDeleteForm = shadowRoot.getElementById("clientDeleteForm");
 
         function openClientFormDialog() {
             const dialog = shadowRoot.getElementById("clientsFormDialog");
@@ -12,6 +12,11 @@ const clientsRoute = {
         function openClientDeleteDialog() {
             const dialog = shadowRoot.getElementById("clientDeleteDialog");
             dialog.showModal();
+        }
+
+        function closeClientDeleteDialog() {
+            const dialog = shadowRoot.getElementById("clientDeleteDialog");
+            dialog.close();
         }
 
         // Updaye client by id
@@ -113,6 +118,7 @@ const clientsRoute = {
                 const errorRow = document.createElement('tr');
                 const errorCell = document.createElement('td');
                 errorCell.colSpan = 6;
+                errorCell.innerText = "No clients data";
 
                 errorRow.appendChild(errorCell);
                 clientsTableBody.appendChild(errorRow);
@@ -154,13 +160,13 @@ const clientsRoute = {
         const searchClientsButton = shadowRoot.getElementById('searchClientsButton');
         searchClientsButton.addEventListener('click', () => {
             utils.findInPage();
-        })
+        });
 
         // Agregando evento a boton de nuevo cliente
         const newClientButton = shadowRoot.getElementById('newClientButton');
         newClientButton.addEventListener('click', () => {
             clientsForm.reset();
-        })
+        });
 
         // Agregando evento al formulario de creacion
         clientsForm.addEventListener('submit', (event) => {
@@ -185,7 +191,7 @@ const clientsRoute = {
             onlist();
         });
 
-        clienteDeleteForm.addEventListener('submit', (event) => {
+        clientDeleteForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
             const formData = new FormData(event.target);
@@ -193,6 +199,8 @@ const clientsRoute = {
             const clientId = formData.get("id");
 
             window.clientsAPI.deleteClient(clientId);
+
+            closeClientDeleteDialog();
 
             onlist();
         })

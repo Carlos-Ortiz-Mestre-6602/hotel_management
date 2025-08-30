@@ -15,3 +15,12 @@ contextBridge.exposeInMainWorld('clientsAPI', {
   updateClient: (data) => ipcRenderer.invoke('update-client', data),
   deleteClient: (clientId) => ipcRenderer.invoke('delete-client', clientId)
 });
+
+// Rooms
+contextBridge.exposeInMainWorld('roomsAPI', {
+  getRooms: () => ipcRenderer.invoke('get-rooms'),
+  getRoomById: (roomId) => ipcRenderer.invoke('get-room-byId', roomId),
+  createRoom: (data) => ipcRenderer.invoke('create-room', data),
+  updateRoom: (data) => ipcRenderer.invoke('update-room', data),
+  deleteRoom: (roomId) => ipcRenderer.invoke('delete-room', roomId)
+});

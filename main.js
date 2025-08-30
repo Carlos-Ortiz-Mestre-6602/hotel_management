@@ -4,6 +4,7 @@ const path = require('path');
 
 // Handlers
 const clientsHandler = require("./src/handlers/clients");
+const roomsHandler = require("./src/handlers/rooms");
 
 let db;
 
@@ -46,6 +47,7 @@ app.whenReady().then(() => {
   });
 
   clientsHandler.handler(db);
+  roomsHandler.handler(db);
 
   // Create window
   createWindow();

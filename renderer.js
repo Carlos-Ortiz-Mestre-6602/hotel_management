@@ -1,6 +1,7 @@
 // Routes
 import contentManagementRoute from "./src/routes/contentmanagement/index.js";
 import clientsRoute from "./src/routes/contentmanagement/clients/index.js";
+import roomsRoute from "./src/routes/contentmanagement/rooms/index.js";
 
 const routes = {
   home: {
@@ -15,6 +16,7 @@ const routes = {
   rooms: {
     path: "./src/routes/contentmanagement/rooms/index.html",
     templateId: "#rooms-template",
+    setup: roomsRoute.setup,
   },
   clients: {
     path: "./src/routes/contentmanagement/clients/index.html",

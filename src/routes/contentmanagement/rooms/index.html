@@ -1,6 +1,129 @@
 <template id="rooms-template">
     <link rel="stylesheet" href="./src/routes/contentmanagement/rooms/styles.css">
     <div class="roomsPage">
-        Rooms
+        <header class="roomsPageHeader">
+            <h1>Rooms</h1>
+            <div class="roomsPageHeaderContent">
+                <button id="searchRoomsButton" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="19px" viewBox="0 -960 960 960" width="19px"
+                        fill="#000000">
+                        <path
+                            d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                    </svg>
+                </button>
+                <button id="newRoomButton" commandfor="roomsFormDialog" command="show-modal">
+                    New room
+                </button>
+            </div>
+        </header>
+        <div>
+            <table class="roomsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Id.</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Cleaned at</th>
+                        <th scope="col" aria-label="Update"></th>
+                        <th scope="col" aria-label="Delete"></th>
+                    </tr>
+                </thead>
+                <tbody id="roomsTableBody"></tbody>
+            </table>
+        </div>
+        <dialog id="roomsFormDialog">
+            <div class="roomsFormContent">
+                <header>
+                    <span>Rooms form</span>
+                    <button commandfor="roomsFormDialog" command="close" aria-label="Close" value="close">
+                        <svg role="none" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960"
+                            width="16px" fill="#000000">
+                            <path
+                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                    </button>
+                </header>
+                <div>
+                    <form id="roomsForm">
+                        <div class="roomsFormFields">
+                            <input id="roomId" name="id" type="text" readonly hidden>
+                            <label>
+                                Number
+                                <input type="text" name="number" required maxlength="10">
+                            </label>
+                            <label>
+                                Type
+                                <input type="text" name="type" required maxlength="100">
+                            </label>
+                            <label>
+                                Price
+                                <input type="number" name="price" required min="0">
+                            </label>
+                            <label>
+                                Status
+                                <select name="status" required>
+                                    <option value="available">Available</option>
+                                    <option value="occupied">Occupied</option>
+                                    <option value="out_of_service">Out of service</option>
+                                    <option value="cleaning">Cleaning</option>
+                                </select>
+                            </label>
+                            <label>
+                                Condition
+                                <select name="condition" required>
+                                    <option value="cleaned">Cleaned</option>
+                                    <option value="no_cleaned">No cleaned</option>
+                                </select>
+                            </label>
+                            <label>
+                                Cleaned at
+                                <input type="date" name="cleanedAt">
+                            </label>
+                            <label style="grid-column: 1 / 4;">
+                                Description
+                                <textarea name="description"></textarea>
+                            </label>
+                        </div>
+                        <div class="roomsFormButtons">
+                            <button type="button" commandfor="roomsFormDialog" command="close" value="cancel">
+                                Cancel
+                            </button>
+                            <button type="submit" commandfor="roomsFormDialog" command="close" value="save">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+        <dialog id="roomDeleteDialog">
+            <div class="roomDeleteContent">
+                <header>
+                    <span>Delete room?</span>
+                    <button commandfor="roomDeleteDialog" command="close" aria-label="Close" value="close">
+                        <svg role="none" xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960"
+                            width="16px" fill="#000000">
+                            <path
+                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                    </button>
+                </header>
+                <p>Are you sure? This action cannot be undone</p>
+                <form id="roomDeleteForm">
+                    <input id="roomDeleteId" type="text" name="id" readonly hidden>
+                    <div class="roomDeleteButtons">
+                        <button type="button" commandfor="roomDeleteDialog" command="close" value="cancel">
+                            Cancel
+                        </button>
+                        <button type="submit" commandfor="roomDeleteDialog" command="close" value="delete">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
     </div>
 </template>
