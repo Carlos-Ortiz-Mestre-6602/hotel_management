@@ -1,5 +1,5 @@
 const clientsRoute = {
-    setup: (shadowRoot) => {
+    setup: (shadowRoot, utils) => {
 
         const clientsForm = shadowRoot.getElementById("clientsForm");
         const clienteDeleteForm = shadowRoot.getElementById("clientDeleteForm");
@@ -149,6 +149,12 @@ const clientsRoute = {
             }
 
         })();
+
+        // Agregando evento a boton de buscar clientes
+        const searchClientsButton = shadowRoot.getElementById('searchClientsButton');
+        searchClientsButton.addEventListener('click', () => {
+            utils.findInPage();
+        })
 
         // Agregando evento a boton de nuevo cliente
         const newClientButton = shadowRoot.getElementById('newClientButton');

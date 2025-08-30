@@ -40,27 +40,11 @@ navButtons.forEach((button) => {
   });
 });
 
-async function findInPage(text) {
-  const options = {
-    forward: true,
-    findNext: false,
-    matchCase: false,
-    wordStart: false,
-    medialCapitalAsWordStart: false,
-  };
-
-  if (text.length > 0) {
-    win.webContents.findInPage(text, options);
-  } else {
-    win.webContents.stopFindInPage("clearSelection");
-  }
-
-  win.webContents.on("found-in-page", (event, result) => {
-    console.log(result.requestId);
-    console.log(result.activeMatchOrdinal);
-    console.log(result.matches);
-    console.log(result.selectionArea);
-  });
+function findInPage() {
+  const searchBar = document.getElementById('search-bar');
+  searchBar.style.display = 'flex'; // Usar flex para alinear los elementos
+  const searchInput = document.getElementById('search-input');
+  searchInput.focus();
 }
 
 async function navigate(root, contentId, page) {
@@ -125,10 +109,7 @@ navigate(document, "mainContent", "home");
 document.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
     e.preventDefault();
-    const searchBar = document.getElementById('search-bar');
-    searchBar.style.display = 'flex'; // Usar flex para alinear los elementos
-    const searchInput = document.getElementById('search-input');
-    searchInput.focus();
+    findInPage();
   }
 });
 
