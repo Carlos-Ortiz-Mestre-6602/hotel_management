@@ -1,93 +1,119 @@
+import { BrowserWindow } from "electron/main";
+
 // Routes
 import contentManagementRoute from "./src/routes/contentmanagement/index.js";
 import clientsRoute from "./src/routes/contentmanagement/clients/index.js";
 
 const routes = {
-    home: {
-        path: "./src/routes/home/index.html",
-        templateId: "#home-template"
-    },
-    management: {
-        path: "./src/routes/contentmanagement/index.html",
-        templateId: "#content-management-template",
-        setup: contentManagementRoute.setup
-    },
-    rooms: {
-        path: "./src/routes/contentmanagement/rooms/index.html",
-        templateId: "#rooms-template",
-    },
-    clients: {
-        path: "./src/routes/contentmanagement/clients/index.html",
-        templateId: "#clients-template",
-        setup: clientsRoute.setup
-    },
-    booking: {
-        path: "./src/routes/contentmanagement/booking/index.html",
-        templateId: "#booking-template"
-    },
-    settings: {
-        path: "./src/routes/settings/index.html",
-        templateId: "#settings-template"
-    }
+  home: {
+    path: "./src/routes/home/index.html",
+    templateId: "#home-template",
+  },
+  management: {
+    path: "./src/routes/contentmanagement/index.html",
+    templateId: "#content-management-template",
+    setup: contentManagementRoute.setup,
+  },
+  rooms: {
+    path: "./src/routes/contentmanagement/rooms/index.html",
+    templateId: "#rooms-template",
+  },
+  clients: {
+    path: "./src/routes/contentmanagement/clients/index.html",
+    templateId: "#clients-template",
+    setup: clientsRoute.setup,
+  },
+  booking: {
+    path: "./src/routes/contentmanagement/booking/index.html",
+    templateId: "#booking-template",
+  },
+  settings: {
+    path: "./src/routes/settings/index.html",
+    templateId: "#settings-template",
+  },
 };
 
 // Botones de navegacion principal
-const navButtons = document.querySelectorAll('.mainNavButton');
-navButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-        const pageName = event.currentTarget.dataset.pageName;
-        navigate(document, "mainContent", pageName);
-    });
+const navButtons = document.querySelectorAll(".mainNavButton");
+navButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const pageName = event.currentTarget.dataset.pageName;
+    navigate(document, "mainContent", pageName);
+  });
 });
 
 async function navigate(root, contentId, page) {
-    const layout = root?.getElementById(contentId);
+  const layout = root?.getElementById(contentId);
 
-    if (!layout) return;
+  if (!layout) return;
 
-    const route = routes[page];
+  const route = routes[page];
 
-    if (!route) return;
+  if (!route) return;
 
-    const contentPath = route.path;
-    const templateId = route.templateId;
+  const contentPath = route.path;
+  const templateId = route.templateId;
 
-    try {
-        const response = await fetch(contentPath);
-        const htmlText = await response.text();
+  try {
+    const response = await fetch(contentPath);
+    const htmlText = await response.text();
 
-        const container = document.createElement('div');
-        container.innerHTML = htmlText;
-        const template = container.querySelector(templateId);
+    const container = document.createElement("div");
+    container.innerHTML = htmlText;
+    const template = container.querySelector(templateId);
 
-        if (template) {
-            // Verificar si el Shadow DOM ya existe
-            let shadowRoot = layout?.shadowRoot;
-            if (!shadowRoot) {
-                // Si no existe, lo crea solo una vez
-                shadowRoot = layout.attachShadow({ mode: 'open' });
-            } else {
-                // Si ya existe, vacia su contenido antes de agregar el nuevo
-                shadowRoot.innerHTML = '';
-            }
+    if (template) {
+      // Verificar si el Shadow DOM ya existe
+      let shadowRoot = layout?.shadowRoot;
+      if (!shadowRoot) {
+        // Si no existe, lo crea solo una vez
+        shadowRoot = layout.attachShadow({ mode: "open" });
+      } else {
+        // Si ya existe, vacia su contenido antes de agregar el nuevo
+        shadowRoot.innerHTML = "";
+      }
 
-            // Clona el contenido del template y lo adjunta al Shadow DOM
-            shadowRoot.appendChild(template.content.cloneNode(true));
+      // Clona el contenido del template y lo adjunta al Shadow DOM
+      shadowRoot.appendChild(template.content.cloneNode(true));
 
-            // Llama a la función de configuración
-            if (route.setup) {
-                route.setup(shadowRoot, navigate);
-            }
-        } else {
-            // Manejar si el template no es encontrado
-            layout.innerHTML = 'Error: Template not found.';
-            if (layout.shadowRoot) layout.shadowRoot.innerHTML = ''; // Limpia el Shadow DOM
-        }
-    } catch (error) {
-        console.error('Error loading content:', error);
-        layout.innerHTML = '<p>Error loading content.</p>';
-        if (layout.shadowRoot) layout.shadowRoot.innerHTML = ''; // Limpia el Shadow DOM
+      // Llama a la función de configuración
+      if (route.setup) {
+        route.setup(shadowRoot, navigate);
+      }
+    } else {
+      // Manejar si el template no es encontrado
+      layout.innerHTML = "Error: Template not found.";
+      if (layout.shadowRoot) layout.shadowRoot.innerHTML = ""; // Limpia el Shadow DOM
     }
+  } catch (error) {
+    console.error("Error loading content:", error);
+    layout.innerHTML = "<p>Error loading content.</p>";
+    if (layout.shadowRoot) layout.shadowRoot.innerHTML = ""; // Limpia el Shadow DOM
+  }
+}
+
+async function findInPage(text) {
+  const win = BrowserWindow.getFocusedWindow();
+
+  const options = {
+    forward: true,
+    findNext: false,
+    matchCase: false,
+    wordStart: false,
+    medialCapitalAsWordStart: false,
+  };
+
+  if (text) {
+    win.webContents.findInPage(text, options);
+  } else {
+  }
+
+  win.webContents.on("found-in-page", (event, result) => {
+    console.log(result.requestId);
+    console.log(result.activeMatchOrdinal);
+    console.log(result.matches);
+    console.log(result.selectionArea);
+  });
 }
 
 // Llamada inicial para cargar la página de inicio
