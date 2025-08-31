@@ -221,15 +221,12 @@ const bookingsRoute = {
             const roomId = roomSelect.value;
 
             const formatDate = (dateString) => {
-                // Crea un objeto Date.
-                // Usar 'T00:00:00' es una buena práctica para evitar problemas de zona horaria.
+
                 const date = new Date(`${dateString}T00:00:00`);
 
-                // Obtiene el día, mes y año.
-                // getMonth() devuelve 0-11, por lo que sumamos 1.
                 const day = String(date.getDate()).padStart(2, '0');
                 const month = String(date.getMonth() + 1).padStart(2, '0');
-                const year = String(date.getFullYear()).slice(-2); // Obtiene los últimos dos dígitos
+                const year = String(date.getFullYear()).slice(-2);
 
                 return `${day}_${month}_${year}`;
             };
