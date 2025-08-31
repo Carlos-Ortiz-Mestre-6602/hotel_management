@@ -1,3 +1,5 @@
+import { getLocalDateString } from "../../../utils/date.js";
+
 const bookingsRoute = {
     setup: (shadowRoot, utils) => {
 
@@ -148,6 +150,29 @@ const bookingsRoute = {
         // Listando las habitaciones disponibles
         const bookingStartDate = shadowRoot.getElementById('bookingStartDate');
         const bookingEndDate = shadowRoot.getElementById('bookingEndDate');
+
+        // Poniendo fecha minima para reservar en el dia de hoy
+        const now = new Date();
+        const localDate = getLocalDateString(now);
+
+        bookingStartDate.min = localDate;
+        bookingEndDate.min = localDate;
+
+        // Validando que la fecha de fin no pueda ser menor a la fecha de inicio
+        bookingStartDate.addEventListener('change', (event) => {
+            const startDate = new Date(event.target.value);
+            const endDate = new Date(bookingEndDate.value);
+
+            if (endDate.getDate() <= startDate.getDate()) {
+                bookingEndDate.value = "";
+            }
+
+            const minEndDate = startDate;
+            minEndDate.setDate(startDate.getDate() + 2);
+
+            const localDate = getLocalDateString(minEndDate);
+            bookingEndDate.min = localDate;
+        });
 
         async function listAvailablesRooms(value, bookingId) {
             const startDate = bookingStartDate.value;
