@@ -1,4 +1,5 @@
 // Routes
+import homeRoute from "./src/routes/home/index.js";
 import contentManagementRoute from "./src/routes/contentmanagement/index.js";
 import bookingsRoute from "./src/routes/contentmanagement/booking/index.js";
 import clientsRoute from "./src/routes/contentmanagement/clients/index.js";
@@ -8,6 +9,7 @@ const routes = {
   home: {
     path: "./src/routes/home/index.html",
     templateId: "#home-template",
+    setup: homeRoute.setup,
   },
   management: {
     path: "./src/routes/contentmanagement/index.html",
@@ -45,9 +47,9 @@ navButtons.forEach((button) => {
 });
 
 function findInPage() {
-  const searchBar = document.getElementById('search-bar');
-  searchBar.style.display = 'flex'; // Usar flex para alinear los elementos
-  const searchInput = document.getElementById('search-input');
+  const searchBar = document.getElementById("search-bar");
+  searchBar.style.display = "flex"; // Usar flex para alinear los elementos
+  const searchInput = document.getElementById("search-input");
   searchInput.focus();
 }
 
@@ -89,8 +91,8 @@ async function navigate(root, contentId, page) {
       if (route.setup) {
         const utils = {
           navigate,
-          findInPage
-        }
+          findInPage,
+        };
 
         route.setup(shadowRoot, utils);
       }
@@ -110,44 +112,44 @@ async function navigate(root, contentId, page) {
 navigate(document, "mainContent", "home");
 
 // Busqueda global en la pagina
-document.addEventListener('keydown', (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "f") {
     e.preventDefault();
     findInPage();
   }
 });
 
-const searchInput = document.getElementById('search-input');
-const findNextButton = document.getElementById('find-next-button');
-const findPrevButton = document.getElementById('find-prev-button');
-const closeButton = document.getElementById('close-button');
+const searchInput = document.getElementById("search-input");
+const findNextButton = document.getElementById("find-next-button");
+const findPrevButton = document.getElementById("find-prev-button");
+const closeButton = document.getElementById("close-button");
 
-searchInput.addEventListener('change', () => {
+searchInput.addEventListener("change", () => {
   const text = searchInput.value;
   if (text) {
     window.electronAPI.findInPage(text, { findNext: true });
   } else {
-    window.electronAPI.stopFindInPage('clearSelection');
+    window.electronAPI.stopFindInPage("clearSelection");
   }
 });
 
-findNextButton.addEventListener('click', () => {
+findNextButton.addEventListener("click", () => {
   const text = searchInput.value;
   if (text) {
     window.electronAPI.findInPage(text, { findNext: true });
   }
 });
 
-findPrevButton.addEventListener('click', () => {
+findPrevButton.addEventListener("click", () => {
   const text = searchInput.value;
   if (text) {
     window.electronAPI.findInPage(text, { findNext: true, forward: false });
   }
 });
 
-closeButton.addEventListener('click', () => {
-  const searchBar = document.getElementById('search-bar');
-  searchBar.style.display = 'none';
-  searchInput.value = '';
-  window.electronAPI.stopFindInPage('clearSelection');
+closeButton.addEventListener("click", () => {
+  const searchBar = document.getElementById("search-bar");
+  searchBar.style.display = "none";
+  searchInput.value = "";
+  window.electronAPI.stopFindInPage("clearSelection");
 });

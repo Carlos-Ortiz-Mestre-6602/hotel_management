@@ -8,6 +8,9 @@ const bookingsRoute = {
         const roomSelect = shadowRoot.getElementById('roomSelect');
         const bookingClientsSelect = shadowRoot.getElementById('bookingClientsSelect');
 
+        const bookingStartDate = shadowRoot.getElementById('bookingStartDate');
+        const bookingEndDate = shadowRoot.getElementById('bookingEndDate');
+
         function openBookingFormDialog() {
             const dialog = shadowRoot.getElementById("bookingsFormDialog");
             dialog.showModal();
@@ -30,6 +33,9 @@ const bookingsRoute = {
                 listAvailablesRooms(booking.roomId, booking.id);
 
                 listClients(booking.clientIds);
+
+                bookingStartDate.min = '';
+                bookingEndDate.min = '';
 
                 openBookingFormDialog();
 
@@ -102,6 +108,13 @@ const bookingsRoute = {
         // Agregando evento a boton de buscar bookings
         const searchBookingsButton = shadowRoot.getElementById('searchBookingsButton');
         searchBookingsButton.addEventListener('click', () => {
+            // Poniendo fecha minima para reservar en el dia de hoy
+            const now = new Date();
+            const localDate = getLocalDateString(now);
+
+            bookingStartDate.min = localDate;
+            bookingEndDate.min = localDate;
+
             utils.findInPage();
         });
 
@@ -148,15 +161,6 @@ const bookingsRoute = {
         });
 
         // Listando las habitaciones disponibles
-        const bookingStartDate = shadowRoot.getElementById('bookingStartDate');
-        const bookingEndDate = shadowRoot.getElementById('bookingEndDate');
-
-        // Poniendo fecha minima para reservar en el dia de hoy
-        const now = new Date();
-        const localDate = getLocalDateString(now);
-
-        bookingStartDate.min = localDate;
-        bookingEndDate.min = localDate;
 
         // Validando que la fecha de fin no pueda ser menor a la fecha de inicio
         bookingStartDate.addEventListener('change', (event) => {
