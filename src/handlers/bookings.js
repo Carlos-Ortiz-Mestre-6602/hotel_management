@@ -22,7 +22,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('get-booking-byId', async (event, bookingId) => {
+    ipcMain.handle('get-booking-byId', async (_, bookingId) => {
         return new Promise((resolve, reject) => {
             const sql = `SELECT
                             b.id AS bookingId, b.number, b.startDate, b.endDate, b.status, b.description,
@@ -63,7 +63,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('create-booking', async (event, data) => {
+    ipcMain.handle('create-booking', async (_, data) => {
         return new Promise((resolve, reject) => {
             if (!data.clientIds) return reject("Booking clients requires");
 
@@ -116,7 +116,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('update-booking', async (event, data) => {
+    ipcMain.handle('update-booking', async (_, data) => {
         return new Promise((resolve, reject) => {
             if (!data.clientIds) return reject("Booking clients requires");
 
@@ -185,7 +185,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('get-available-rooms', async (event, data) => {
+    ipcMain.handle('get-available-rooms', async (_, data) => {
         return new Promise((resolve, reject) => {
 
             const sql = `SELECT *

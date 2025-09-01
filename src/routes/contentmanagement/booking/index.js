@@ -108,13 +108,6 @@ const bookingsRoute = {
         // Agregando evento a boton de buscar bookings
         const searchBookingsButton = shadowRoot.getElementById('searchBookingsButton');
         searchBookingsButton.addEventListener('click', () => {
-            // Poniendo fecha minima para reservar en el dia de hoy
-            const now = new Date();
-            const localDate = getLocalDateString(now);
-
-            bookingStartDate.min = localDate;
-            bookingEndDate.min = localDate;
-
             utils.findInPage();
         });
 
@@ -122,6 +115,14 @@ const bookingsRoute = {
         const newBookingButton = shadowRoot.getElementById('newBookingButton');
         newBookingButton.addEventListener('click', () => {
             roomSelect.innerHTML = '<option value="">--Select a room--</option>';
+
+            // Poniendo fecha minima para reservar en el dia de hoy
+            const now = new Date();
+            const localDate = getLocalDateString(now);
+
+            bookingStartDate.min = localDate;
+            bookingEndDate.min = localDate;
+
             bookingsForm.reset();
         });
 

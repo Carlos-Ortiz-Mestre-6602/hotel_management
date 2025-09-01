@@ -14,7 +14,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('get-client-byId', async (event, clientId) => {
+    ipcMain.handle('get-client-byId', async (_, clientId) => {
         return new Promise((resolve, reject) => {
             const sql = `SELECT * FROM clients WHERE id = ?`;
             db.get(sql, [clientId], (err, row) => {
@@ -48,7 +48,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('update-client', async (event, data) => {
+    ipcMain.handle('update-client', async (_, data) => {
         return new Promise((resolve, reject) => {
             if (!data.id) return reject('No valid id')
 
@@ -67,7 +67,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('delete-client', async (event, clientId) => {
+    ipcMain.handle('delete-client', async (_, clientId) => {
         return new Promise((resolve, reject) => {
             const sql = `DELETE FROM clients WHERE id = ?`;
 

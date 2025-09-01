@@ -14,7 +14,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('get-room-byId', async (event, roomId) => {
+    ipcMain.handle('get-room-byId', async (_, roomId) => {
         return new Promise((resolve, reject) => {
             const sql = `SELECT * FROM rooms WHERE id = ?`;
             db.get(sql, [roomId], (err, row) => {
@@ -27,7 +27,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('create-room', async (event, data) => {
+    ipcMain.handle('create-room', async (_, data) => {
         return new Promise((resolve, reject) => {
             const sql = 'INSERT INTO rooms (number, type, price, status, condition, cleanedAt, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
@@ -42,7 +42,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('update-room', async (event, data) => {
+    ipcMain.handle('update-room', async (_, data) => {
         return new Promise((resolve, reject) => {
             if (!data.id) return reject('No valid id')
 
@@ -61,7 +61,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('delete-room', async (event, roomId) => {
+    ipcMain.handle('delete-room', async (_, roomId) => {
         return new Promise((resolve, reject) => {
             const sql = `DELETE FROM rooms WHERE id = ?`;
 

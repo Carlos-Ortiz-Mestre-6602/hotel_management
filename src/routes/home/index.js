@@ -1,22 +1,22 @@
+const statusColors = {
+  "pending": "#ffc107",
+  "confirmed": "#28a745",
+  "checked-in": "#007bff",
+  "canceled": "#dc3545",
+  "no-show": "#6c757d",
+  "completed": "#17a2b8"
+};
+
 const bookingsRoute = {
   setup: async (shadowRoot, utils) => {
     const bookings = await window.bookingsAPI.getBookings();
-
-    const statusColors = {
-        "pending": "#ffc107",
-        "confirmed": "#28a745",
-        "checked-in": "#007bff",
-        "canceled": "#dc3545",
-        "no-show": "#6c757d",
-        "completed": "#17a2b8"
-    };
 
     const events = bookings.map((booking) => {
       const color = statusColors[booking.status] || "#95a5a6"; // Gris por defecto
 
       return {
         id: booking.id,
-        title: `Booking Room ${booking.roomName}`,
+        title: `Room ${booking.roomName} - (${booking.status})`,
         start: booking.startDate,
         end: new Date(
           new Date(booking.endDate).setDate(
