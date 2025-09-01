@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
+    "fullcalendar": "^6.1.19",
     "sqlite3": "^5.1.7"
   }
 }
