@@ -25,6 +25,12 @@
     }
 }
 
+.roomsTableContent {
+    max-height: 80vh;
+    height: 100%;
+    overflow: auto;
+}
+
 .roomsTable {
     width: 100%;
     border-collapse: collapse;

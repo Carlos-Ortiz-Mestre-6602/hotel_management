@@ -25,6 +25,12 @@
     }
 }
 
+.bookingsTableContent {
+    max-height: 80vh;
+    height: 100%;
+    overflow: auto;
+}
+
 .bookingsTable {
     width: 100%;
     border-collapse: collapse;

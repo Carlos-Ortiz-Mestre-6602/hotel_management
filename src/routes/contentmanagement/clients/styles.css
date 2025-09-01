@@ -25,6 +25,12 @@
     }
 }
 
+.clientsTableContent {
+    max-height: 80vh;
+    height: 100%;
+    overflow: auto;
+}
+
 .clientsTable {
     width: 100%;
     border-collapse: collapse;
