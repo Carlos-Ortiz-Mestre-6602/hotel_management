@@ -27,7 +27,7 @@ const handler = (db) => {
         });
     });
 
-    ipcMain.handle('get-countries', async () => {
+    ipcMain.handle('get-countries', () => {
         return new Promise((resolve, reject) => {
             fetch("https://restcountries.com/v3.1/all?fields=name,cca2").then(response => response.json()).then(resolve).catch(reject)
         });
