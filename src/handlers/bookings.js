@@ -9,7 +9,7 @@ const handler = (db) => {
                             r.number AS roomName
                         FROM
                             bookings AS b
-                        JOIN
+                        LEFT JOIN
                             rooms AS r ON b.roomId = r.id;`;
 
             db.all(sql, (err, rows) => {
@@ -31,7 +31,7 @@ const handler = (db) => {
                         FROM bookings AS b
                         JOIN client_bookings AS cb ON b.id = cb.bookingId
                         JOIN clients AS c ON cb.clientId = c.id
-                        JOIN rooms AS r ON b.roomId = r.id
+                        LEFT JOIN rooms AS r ON b.roomId = r.id
                         WHERE b.id = ?;`;
 
             db.all(sql, [bookingId], (err, rows) => {
@@ -72,7 +72,7 @@ const handler = (db) => {
 
                 const sql = 'INSERT INTO bookings (number, roomId, startDate, endDate, status, description) VALUES (?, ?, ?, ?, ?, ?)';
 
-                const roomId = Number(data.roomId);
+                const roomId = data.roomId ? Number(data.roomId) : null;
 
                 db.run(sql, [data.number, roomId, data.startDate, data.endDate, data.status, data.description], function (err) {
                     if (err) {
@@ -132,9 +132,11 @@ const handler = (db) => {
                     WHERE id = ?
                 `;
 
+                const roomId = data.roomId ? Number(data.roomId) : null;
+
                 db.run(
                     sql,
-                    [data.number, data.roomId, data.startDate, data.endDate, data.status, data.description, bookingId],
+                    [data.number, roomId, data.startDate, data.endDate, data.status, data.description, bookingId],
                     (err) => {
                         if (err) {
                             db.run("ROLLBACK;");

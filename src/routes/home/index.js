@@ -16,7 +16,7 @@ const bookingsRoute = {
 
       return {
         id: booking.id,
-        title: `Room ${booking.roomName} - (${booking.status})`,
+        title: `Room ${booking.roomName ? booking.roomName : "no defined"} - (${booking.status})`,
         start: booking.startDate,
         end: new Date(
           new Date(booking.endDate).setDate(
