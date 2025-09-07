@@ -1,6 +1,7 @@
 // Routes
 import homeRoute from "./src/routes/home/index.js";
 import contentManagementRoute from "./src/routes/contentmanagement/index.js";
+import checkinRoute from "./src/routes/contentmanagement/checkin/index.js";
 import bookingsRoute from "./src/routes/contentmanagement/booking/index.js";
 import clientsRoute from "./src/routes/contentmanagement/clients/index.js";
 import roomsRoute from "./src/routes/contentmanagement/rooms/index.js";
@@ -15,6 +16,11 @@ const routes = {
     path: "./src/routes/contentmanagement/index.html",
     templateId: "#content-management-template",
     setup: contentManagementRoute.setup,
+  },
+  checkin: {
+    path: "./src/routes/contentmanagement/checkin/index.html",
+    templateId: "#ckeckin-template",
+    setup: checkinRoute.setup,
   },
   booking: {
     path: "./src/routes/contentmanagement/booking/index.html",

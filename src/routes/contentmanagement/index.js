@@ -11,7 +11,7 @@ const contentManagementRoute = {
         });
 
         // Default page
-        utils.navigate(shadowRoot, "contentManagementContent", "booking");
+        utils.navigate(shadowRoot, "contentManagementContent", "checkin");
 
     }
 }
